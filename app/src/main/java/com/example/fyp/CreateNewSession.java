@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import java.util.Calendar;
 
@@ -20,10 +21,8 @@ public class CreateNewSession extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_session);
 
-        DatePicker datePicker = (DatePicker) findViewById(R.id.selecteddate);
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth() + 1;
-        int year = datePicker.getYear();
+
+
     }
 
     @Override
@@ -31,6 +30,8 @@ public class CreateNewSession extends FragmentActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_new_session, menu);
         return true;
+
+
     }
 
     @Override
@@ -48,8 +49,7 @@ public class CreateNewSession extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -66,7 +66,9 @@ public class CreateNewSession extends FragmentActivity {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
 
+            ((EditText) getActivity().findViewById(R.id.selecteddate)).setText(day + "-" + month + "-" + year);
         }
+
     }
 
     public void showDatePickerDialog(View v) {
