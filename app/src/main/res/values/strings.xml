@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FYP</string>
+    <string name="textview">Hello World!!!</string>
+    <string name="button">Update</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_register">Register</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_homepage">Homepage</string>
+    <string name="title_activity_create_new_session">CreateNewSession</string>
+    <string name="title_activity_view_promotions">ViewPromotions</string>
+    <string name="title_activity_view_friendlist">ViewFriendlist</string>
+    <string name="title_activity_profile">Profile</string>
+</resources>

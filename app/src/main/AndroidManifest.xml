@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.fyp" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".FirstPage"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <!-- <activity -->
+        <!-- android:name="com.example.fyp.Homepage" -->
+        <!-- android:label="@string/title_activity_homepage" -->
+        <!-- android:parentActivityName="com.example.fyp.FirstPage" > -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.PARENT_ACTIVITY" -->
+        <!-- android:value="com.example.fyp.FirstPage" /> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".Homepage"
+            android:label="@string/title_activity_homepage" >
+        </activity>
+        <activity
+            android:name=".CreateNewSession"
+            android:label="@string/title_activity_create_new_session" >
+        </activity>
+        <activity
+            android:name=".ViewPromotions"
+            android:label="@string/title_activity_view_promotions" >
+        </activity>
+        <activity
+            android:name=".ViewFriendlist"
+            android:label="@string/title_activity_view_friendlist" >
+        </activity>
+        <activity
+            android:name=".Profile"
+            android:label="@string/title_activity_profile" >
+        </activity>
+    </application>
+
+</manifest>
