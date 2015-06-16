@@ -48,6 +48,14 @@
             android:name=".Profile"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".SelectFriends"
+            android:label="@string/title_activity_select_friends" >
+        </activity>
+        <activity
+            android:name=".AddFriends"
+            android:label="@string/title_activity_add_friends" >
+        </activity>
     </application>
 
 </manifest>

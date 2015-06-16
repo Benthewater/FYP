@@ -4,21 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="8"
-    tools:context="com.example.fyp.ViewPromotions">
+    tools:context="com.example.fyp.SelectFriends">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Promotions Available:"
+        android:text="Invite Friends to the Session."
         android:textSize="20dp"/>
 
     <ListView
-        android:id="@+id/promotions"
+        android:id="@+id/friendselection"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,10 +27,10 @@
         android:gravity="center|bottom">
 
         <Button
-            android:id="@+id/homepage"
+            android:id="@+id/createsession"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Homepage" />
+            android:text="Create New Session" />
 
     </LinearLayout>
 

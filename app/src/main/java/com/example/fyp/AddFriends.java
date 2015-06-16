@@ -6,44 +6,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 
-public class ViewPromotions extends Activity implements View.OnClickListener {
-
-    String[] promotions = {
-            "Promotion 1",
-            "Promotion 2",
-            "Promotion 3",
-            "Promotion 4",
-            "Promotion 5",
-            "Promotion 6",
-            "Promotion 7"
-    };
+public class AddFriends extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_promotions);
+        setContentView(R.layout.activity_add_friends);
 
-        ListView PromotionList = (ListView)findViewById(R.id.promotions);
-        PromotionList.setChoiceMode(PromotionList.CHOICE_MODE_SINGLE);
-
-        PromotionList.setTextFilterEnabled(true);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_selectable_list_item, promotions);
-        PromotionList.setAdapter(adapter);
-
-        Button HomePage = (Button) findViewById(R.id.homepage);
-        HomePage.setOnClickListener(this);
+        Button BackButton = (Button)findViewById(R.id.backbutton);
+        BackButton.setOnClickListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_promotions, menu);
+        getMenuInflater().inflate(R.menu.menu_add_friends, menu);
         return true;
     }
 
@@ -65,7 +45,7 @@ public class ViewPromotions extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case(R.id.homepage):
+            case(R.id.backbutton):
                 finish();
                 break;
             default:

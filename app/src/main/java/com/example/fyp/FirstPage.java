@@ -51,6 +51,7 @@ public class FirstPage extends Activity implements OnClickListener {
                 String username = enteredusername.getText().toString();
                 logging_in.putExtra(EXTRA_MESSAGE, username);
                 startActivity(logging_in);
+                finish();
                 break;
 
             case R.id.log_register:

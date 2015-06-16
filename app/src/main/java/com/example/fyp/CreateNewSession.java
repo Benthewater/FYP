@@ -3,25 +3,30 @@ package com.example.fyp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
 
 
-public class CreateNewSession extends FragmentActivity {
+public class CreateNewSession extends FragmentActivity implements View.OnClickListener {
+
+    Button NextPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_session);
 
-
+        NextPage = (Button) findViewById(R.id.nextpage);
+        NextPage.setOnClickListener(this);
 
     }
 
@@ -37,7 +42,7 @@ public class CreateNewSession extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Home/Up button, so longg
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -47,6 +52,12 @@ public class CreateNewSession extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent nextpage = new Intent(this, SelectFriends.class);
+        startActivity(nextpage);
     }
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{

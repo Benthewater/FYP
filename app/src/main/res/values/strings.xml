@@ -11,4 +11,6 @@
     <string name="title_activity_view_promotions">ViewPromotions</string>
     <string name="title_activity_view_friendlist">ViewFriendlist</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_select_friends">SelectFriends</string>
+    <string name="title_activity_add_friends">AddFriends</string>
 </resources>

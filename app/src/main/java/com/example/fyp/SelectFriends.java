@@ -1,5 +1,6 @@
 package com.example.fyp;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +10,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
-public class ViewFriendlist extends Activity implements View.OnClickListener {
+public class SelectFriends extends Activity implements View.OnClickListener{
 
     String[] friends= {
             "friend 1",
@@ -24,32 +26,30 @@ public class ViewFriendlist extends Activity implements View.OnClickListener {
             "friend 8"
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_friendlist);
+        setContentView(R.layout.activity_select_friends);
 
-        ListView Friendlist= (ListView) findViewById(R.id.friendlist);
-        Friendlist.setChoiceMode(Friendlist.CHOICE_MODE_SINGLE);
+        ListView listview= (ListView) findViewById(R.id.friendselection);
+        listview.setChoiceMode(listview.CHOICE_MODE_MULTIPLE);
 
-        Friendlist.setTextFilterEnabled(true);
+        listview.setTextFilterEnabled(true);
 
         ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_selectable_list_item, friends);
+                android.R.layout.simple_list_item_checked, friends);
 
-        Friendlist.setAdapter(adapter);
+        listview.setAdapter(adapter);
 
-        Button AddFriend = (Button)findViewById(R.id.addfriend);
-        AddFriend.setOnClickListener(this);
-
-        Button Homepage = (Button) findViewById(R.id.homepage);
-        Homepage.setOnClickListener(this);
+        Button CreateNewSession = (Button)findViewById(R.id.createsession);
+        CreateNewSession.setOnClickListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_friendlist, menu);
+        getMenuInflater().inflate(R.menu.menu_select_friends, menu);
         return true;
     }
 
@@ -70,16 +70,15 @@ public class ViewFriendlist extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
-            case(R.id.addfriend):
-                Intent add = new Intent(this, AddFriends.class);
-                startActivity(add);
-                break;
-            case(R.id.homepage):
+        switch(v.getId()) {
+            case R.id.createsession:
+                Toast.makeText(this, "Session successfully created!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
+
             default:
                 break;
         }
+
     }
 }
