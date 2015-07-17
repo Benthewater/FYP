@@ -25,7 +25,6 @@ import java.util.List;
 public class Register extends Activity implements View.OnClickListener {
 
     private EditText user, pass;
-    private Button  mRegister;
 
     private ProgressDialog pDialog;
 
@@ -92,7 +91,7 @@ public class Register extends Activity implements View.OnClickListener {
                             LOGIN_URL, "POST", params);
 
                     //full json response
-                    Log.d("Login attempt", String.valueOf(json));
+                    Log.d("Login attempt", json.toString());
 
                     // json success element
                     success = json.getInt(TAG_SUCCESS);
