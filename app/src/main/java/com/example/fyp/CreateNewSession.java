@@ -1,5 +1,6 @@
 package com.example.fyp;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,16 +10,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 
-public class CreateNewSession extends FragmentActivity implements View.OnClickListener {
+public class CreateNewSession extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     Button NextPage;
+    ListView shoplist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,12 @@ public class CreateNewSession extends FragmentActivity implements View.OnClickLi
 
         NextPage = (Button) findViewById(R.id.nextpage);
         NextPage.setOnClickListener(this);
+
+        shoplist = (ListView) findViewById(R.id.shopselection);
+        shoplist.setChoiceMode(shoplist.CHOICE_MODE_SINGLE);
+        shoplist.setTextFilterEnabled(true);
+        shoplist.setOnItemSelectedListener(this);
+        LoadShopList();
 
     }
 
@@ -60,6 +75,18 @@ public class CreateNewSession extends FragmentActivity implements View.OnClickLi
         startActivity(nextpage);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String selected_shop = parent.getItemAtPosition(position).toString();
+
+        Toast.makeText(parent.getContext(), "You have selected: " + selected_shop, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
         @Override
@@ -86,4 +113,17 @@ public class CreateNewSession extends FragmentActivity implements View.OnClickLi
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
+
+    private void LoadShopList(){
+        DBHelper db = new DBHelper(getApplicationContext());
+
+        List<String> shop_list = db.getShop();
+        //List<String> shop_list = Arrays.asList("A", "B", "C", "D", "E");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, shop_list);
+        shoplist.setAdapter(dataAdapter);
+
+    }
+
+
 }

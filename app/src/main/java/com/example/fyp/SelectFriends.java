@@ -12,35 +12,22 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 public class SelectFriends extends Activity implements View.OnClickListener{
 
-    String[] friends= {
-            "friend 1",
-            "friend 2",
-            "friend 3",
-            "friend 4",
-            "friend 5",
-            "friend 6",
-            "friend 7",
-            "friend 8"
-    };
-
+    ListView friendlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_friends);
 
-        ListView listview= (ListView) findViewById(R.id.friendselection);
-        listview.setChoiceMode(listview.CHOICE_MODE_MULTIPLE);
-
-        listview.setTextFilterEnabled(true);
-
-        ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_checked, friends);
-
-        listview.setAdapter(adapter);
+        friendlist = (ListView) findViewById(R.id.friendselection);
+        friendlist.setChoiceMode(friendlist.CHOICE_MODE_MULTIPLE);
+        friendlist.setTextFilterEnabled(true);
+        LoadFriendList();
 
         Button CreateNewSession = (Button)findViewById(R.id.createsession);
         CreateNewSession.setOnClickListener(this);
@@ -80,5 +67,14 @@ public class SelectFriends extends Activity implements View.OnClickListener{
                 break;
         }
 
+    }
+
+    private void LoadFriendList(){
+        DBHelper db = new DBHelper(getApplicationContext());
+
+        List<String> friend_list = db.getFriend();
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, friend_list);
+        friendlist.setAdapter(dataAdapter);
     }
 }

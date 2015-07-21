@@ -10,31 +10,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 public class ViewPromotions extends Activity implements View.OnClickListener {
 
-    String[] promotions = {
-            "Promotion 1",
-            "Promotion 2",
-            "Promotion 3",
-            "Promotion 4",
-            "Promotion 5",
-            "Promotion 6",
-            "Promotion 7"
-    };
+    ListView PromotionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_promotions);
 
-        ListView PromotionList = (ListView)findViewById(R.id.promotions);
+        PromotionList = (ListView)findViewById(R.id.promotions);
         PromotionList.setChoiceMode(PromotionList.CHOICE_MODE_SINGLE);
 
         PromotionList.setTextFilterEnabled(true);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_selectable_list_item, promotions);
-        PromotionList.setAdapter(adapter);
+        LoadShopList();
+
+        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_selectable_list_item, promotions);
+       // PromotionList.setAdapter(adapter);
 
         Button HomePage = (Button) findViewById(R.id.homepage);
         HomePage.setOnClickListener(this);
@@ -71,5 +68,17 @@ public class ViewPromotions extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void LoadShopList(){
+        DBHelper db = new DBHelper(getApplicationContext());
+
+        List<String> shop_list = db.getShop();
+        //List<String> shop_list = Arrays.asList("A", "B", "C");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, shop_list);
+        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        PromotionList.setAdapter(dataAdapter);
+
     }
 }

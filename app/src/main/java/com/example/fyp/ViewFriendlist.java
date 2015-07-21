@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
 
 public class ViewFriendlist extends Activity implements View.OnClickListener {
 
@@ -24,20 +26,18 @@ public class ViewFriendlist extends Activity implements View.OnClickListener {
             "friend 8"
     };
 
+    ListView Friendlist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_friendlist);
 
-        ListView Friendlist= (ListView) findViewById(R.id.friendlist);
+        Friendlist = (ListView) findViewById(R.id.friendlist);
         Friendlist.setChoiceMode(Friendlist.CHOICE_MODE_SINGLE);
 
         Friendlist.setTextFilterEnabled(true);
-
-        ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_selectable_list_item, friends);
-
-        Friendlist.setAdapter(adapter);
+        LoadFriendList();
 
         Button AddFriend = (Button)findViewById(R.id.addfriend);
         AddFriend.setOnClickListener(this);
@@ -81,5 +81,17 @@ public class ViewFriendlist extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void LoadFriendList(){
+        DBHelper db = new DBHelper(getApplicationContext());
+
+        List<String> friend_list = db.getFriend();
+        //List<String> shop_list = Arrays.asList("A", "B", "C");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, friend_list);
+        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Friendlist.setAdapter(dataAdapter);
+
     }
 }

@@ -37,12 +37,19 @@ public class FirstPage extends Activity implements OnClickListener {
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-    private static final String TAG_POINT = "member_point";
-    private static final String TAG_NAME = "member_name";
+    private static final String TAG_MEMBER_ID = "member_id";
+    private static final String TAG_MEMBER_POINT = "member_point";
+    private static final String TAG_MEMBER_NAME = "member_name";
+    private static final String TAG_SHOP_ID = "shop_ID_";
+    private static final String TAG_SHOP_NAME = "shop_name_";
+    private static final String TAG_FRIEND_ID = "friend_ID_";
+    private static final String TAG_FRIEND_NAME = "friend_name_";
 
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
 
     DBHelper mydb;
+
+    int shop_ID_counter = 0, shop_name_counter = 0, friend_ID_counter = 0, friend_name_counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +136,14 @@ public class FirstPage extends Activity implements OnClickListener {
                     logging_in.putExtra(EXTRA_MESSAGE, username);
                     startActivity(logging_in);
                     finish();
-                    mydb.StoreMemberInfo(json.getString(TAG_NAME), Integer.valueOf(json.getString(TAG_POINT).toString()));
+                    mydb.cleartable();
+                    mydb.StoreMemberInfo(Integer.valueOf(json.getString(TAG_MEMBER_ID).toString()), json.getString(TAG_MEMBER_NAME), Integer.valueOf(json.getString(TAG_MEMBER_POINT).toString()));
+                    while(!(json.isNull(TAG_SHOP_ID + ++shop_ID_counter))){
+                        mydb.StoreShopInfo(Integer.valueOf(json.getString(TAG_SHOP_ID + shop_ID_counter).toString()), json.getString(TAG_SHOP_NAME + ++shop_name_counter));
+                    }
+                    while(!(json.isNull(TAG_FRIEND_ID + ++friend_ID_counter))){
+                        mydb.StoreFriendInfo(Integer.valueOf(json.getString(TAG_FRIEND_ID + friend_ID_counter).toString()), json.getString(TAG_FRIEND_NAME + ++friend_name_counter));
+                    }
                     return json.getString(TAG_MESSAGE);
                 }else{
                     Log.d("Login Failure!", json.getString(TAG_MESSAGE));

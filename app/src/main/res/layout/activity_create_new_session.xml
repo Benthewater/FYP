@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:weightSum="4.5">
+    android:weightSum="16">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:textSize="25dp"
         android:text="New HangOut Session"
         />
@@ -16,9 +16,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="7"
         android:orientation="vertical"
-        android:weightSum="2">
+        android:weightSum="5">
 
         <TextView
             android:layout_width="match_parent"
@@ -27,39 +27,34 @@
             android:text="Please select shop:"
             android:textSize="30dp"/>
 
-        <Spinner
+        <ListView
             android:id="@+id/shopselection"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown">
-            <!--android:entries=""-->
-
-        </Spinner>
+            android:layout_weight="4" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:orientation="vertical"
-        android:weightSum="2">
+        android:weightSum="5">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:text="Please select a date: "
             android:textSize="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal"
-            android:weightSum="3"
+            android:weightSum="0"
             android:paddingBottom="0dp">
 
             <EditText
@@ -82,9 +77,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:orientation="vertical"
-        android:gravity="center|bottom">
+        android:gravity="center|bottom"
+        android:weightSum="5">
 
         <Button
             android:id="@+id/nextpage"
