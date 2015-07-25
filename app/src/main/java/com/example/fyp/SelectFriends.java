@@ -24,6 +24,9 @@ public class SelectFriends extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_friends);
 
+        String selected_shop = getIntent().getStringExtra("Selected_Shop");
+        String selected_date = getIntent().getStringExtra("Selected_Date");
+
         friendlist = (ListView) findViewById(R.id.friendselection);
         friendlist.setChoiceMode(friendlist.CHOICE_MODE_MULTIPLE);
         friendlist.setTextFilterEnabled(true);
@@ -74,7 +77,7 @@ public class SelectFriends extends Activity implements View.OnClickListener{
 
         List<String> friend_list = db.getFriend();
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, friend_list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, friend_list);
         friendlist.setAdapter(dataAdapter);
     }
 }

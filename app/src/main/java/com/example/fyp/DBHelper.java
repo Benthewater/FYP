@@ -93,8 +93,41 @@ public class DBHelper extends SQLiteOpenHelper{
     public Cursor getName(int points){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("Select Member_Name FROM Member WHERE Member_Point =" + points + "", null);
-        //Cursor res = db.rawQuery("Select Shop_Name FROM Shop WHERE Shop_ID = 4", null);
         return res;
+    }
+
+    public int getmemberID(){
+        int id=0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("Select Member_ID FROM Member", null);
+
+        if(res.moveToFirst()){
+            do{
+                id = res.getInt(0);
+            } while(res.moveToNext());
+        }
+
+        res.close();
+        db.close();
+        return id;
+    }
+
+    public int getshopID(String shopname){
+        int id =0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("Select Shop_ID FROM Shop WHERE Shop_Name = '" + shopname + "'", null);
+
+        if(res.moveToFirst()){
+            do{
+                id = res.getInt(0);
+            } while(res.moveToNext());
+        }
+
+        res.close();
+        db.close();
+        return id;
     }
 
     public void cleartable(){
