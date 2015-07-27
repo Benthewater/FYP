@@ -29,11 +29,16 @@ public class DBHelper extends SQLiteOpenHelper{
     public static final String TABLE_PROMOTION = "Promotion";
     public static final String KEY_PROMOTION_ID = "Promotion_ID";
     public static final String KEY_PROMOTION_DESCRIPTION = "Promotion_Description";
+    public static final String KEY_PROMOTION_POINT = "Promotion_Point";
+    public static final String TABLE_FRIEND_REQUEST = "Friend_Request";
+    public static final String KEY_FRIEND_REQUEST_ID = "Friend_Request_ID";
+    public static final String KEY_FRIEND_REQUEST_NAME = "Friend_Request_Name";
 
-    public static final String CREATE_TABLE_MEMBER = "CREATE TABLE " + TABLE_MEMBER + "(" + KEY_MEMBER_ID + " INTEGER PRIMARY KEY," + KEY_MEMBER_NAME + " TEXT," + KEY_MEMBER_POINT + " int" + ")";
-    public static final String CREATE_TABLE_SHOP = "CREATE TABLE " + TABLE_SHOP + "(" + KEY_SHOP_ID + " INTEGER PRIMARY KEY," + KEY_SHOP_NAME + " TEXT" + ")";
-    public static final String CREATE_TABLE_FRIEND = "CREATE TABLE " + TABLE_FRIEND + "(" + KEY_FRIEND_ID + " INTEGER PRIMARY KEY," + KEY_FRIEND_NAME + " TEXT" + ")";
-    public static final String CREATE_TABLE_PROMOTION = "CREATE TABLE " + TABLE_PROMOTION + "(" + KEY_PROMOTION_ID + " INTEGER PRIMARY KEY," + KEY_PROMOTION_DESCRIPTION + " TEXT" + ")";
+    public static final String CREATE_TABLE_MEMBER = "CREATE TABLE " + TABLE_MEMBER + "(" + KEY_MEMBER_ID + " INTEGER PRIMARY KEY," + KEY_MEMBER_NAME + " VARCHAR(25)," + KEY_MEMBER_POINT + " int" + ")";
+    public static final String CREATE_TABLE_SHOP = "CREATE TABLE " + TABLE_SHOP + "(" + KEY_SHOP_ID + " INTEGER PRIMARY KEY," + KEY_SHOP_NAME + " VARCHAR(25)" + ")";
+    public static final String CREATE_TABLE_FRIEND = "CREATE TABLE " + TABLE_FRIEND + "(" + KEY_FRIEND_ID + " INTEGER PRIMARY KEY," + KEY_FRIEND_NAME + " VARCHAR(25)" + ")";
+    public static final String CREATE_TABLE_PROMOTION = "CREATE TABLE " + TABLE_PROMOTION + "(" + KEY_PROMOTION_ID + " INTEGER PRIMARY KEY," + KEY_PROMOTION_DESCRIPTION + " TEXT, " + KEY_PROMOTION_POINT + " INTEGER" + ")";
+    public static final String CREATE_TABLE_FRIEND_REQUEST = "CREATE TABLE " + TABLE_FRIEND_REQUEST + "(" + KEY_FRIEND_REQUEST_ID + " INTEGER PRIMARY KEY," + KEY_FRIEND_REQUEST_NAME + " VARCHAR(25)" + ")";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,11 +46,11 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        cleartable();
         db.execSQL(CREATE_TABLE_MEMBER);
         db.execSQL(CREATE_TABLE_SHOP);
         db.execSQL(CREATE_TABLE_FRIEND);
         db.execSQL(CREATE_TABLE_PROMOTION);
+        db.execSQL(CREATE_TABLE_FRIEND_REQUEST);
     }
 
     @Override
@@ -54,6 +59,7 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXIST" + TABLE_SHOP);
         db.execSQL("DROP TABLE IF EXIST" + TABLE_FRIEND);
         db.execSQL("DROP TABLE IF EXIST" + TABLE_PROMOTION);
+        db.execSQL("DROP TABLE IF EXIST" + TABLE_FRIEND_REQUEST);
         onCreate(db);
     }
 
@@ -82,12 +88,21 @@ public class DBHelper extends SQLiteOpenHelper{
         db.insert(TABLE_FRIEND, null, values);
     }
 
-    public void StorePromotionInfo(int promotion_ID, String promotion_Name){
+    public void StorePromotionInfo(int promotion_ID, String promotion_Name, int promotion_Point){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_PROMOTION_ID, promotion_ID);
         values.put(KEY_PROMOTION_DESCRIPTION, promotion_Name);
+        values.put(KEY_PROMOTION_POINT, promotion_Point);
         db.insert(TABLE_PROMOTION, null, values);
+    }
+
+    public void StoreFriendRequestInfo(int friend_request_ID, String friend_request_Name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_FRIEND_REQUEST_ID, friend_request_ID);
+        values.put(KEY_FRIEND_REQUEST_NAME, friend_request_Name);
+        db.insert(TABLE_FRIEND_REQUEST, null, values);
     }
 
     public Cursor getName(int points){
@@ -101,6 +116,23 @@ public class DBHelper extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("Select Member_ID FROM Member", null);
+
+        if(res.moveToFirst()){
+            do{
+                id = res.getInt(0);
+            } while(res.moveToNext());
+        }
+
+        res.close();
+        db.close();
+        return id;
+    }
+
+    public int getmemberpoint(){
+        int id=0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("Select Member_Point FROM Member", null);
 
         if(res.moveToFirst()){
             do{
@@ -130,12 +162,47 @@ public class DBHelper extends SQLiteOpenHelper{
         return id;
     }
 
+    public int getFriendRequestID(String requestname){
+        int id=0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("Select Friend_Request_ID FROM Friend_Request WHERE Friend_Request_Name = '" + requestname + "'", null);
+
+        if(res.moveToFirst()){
+            do{
+                id = res.getInt(0);
+            } while(res.moveToNext());
+        }
+
+        res.close();
+        db.close();
+        return id;
+    }
+
+    public int getPoints(String description){
+        int id=0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("Select Promotion_Point FROM Promotion WHERE Promotion_Description = '" + description + "'", null);
+
+        if(res.moveToFirst()){
+            do{
+                id = res.getInt(0);
+            } while(res.moveToNext());
+        }
+
+        res.close();
+        db.close();
+        return id;
+    }
+
     public void cleartable(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_MEMBER);
         db.execSQL("DELETE FROM " + TABLE_SHOP);
         db.execSQL("DELETE FROM " + TABLE_FRIEND);
         db.execSQL("DELETE FROM " + TABLE_PROMOTION);
+        db.execSQL("DELETE FROM " + TABLE_FRIEND_REQUEST);
     }
 
     public List<String> getShop(){
@@ -177,4 +244,46 @@ public class DBHelper extends SQLiteOpenHelper{
 
         return Friend;
     }
+
+    public List<String> getFriendRequest(){
+        List<String> FriendRequest = new ArrayList<String>();
+
+        String query = "SELECT " + KEY_FRIEND_REQUEST_NAME + " FROM " + TABLE_FRIEND_REQUEST;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                FriendRequest.add(cursor.getString(0));
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return FriendRequest;
+    }
+
+    public List<String> getPromotion(){
+        List<String> Promotion = new ArrayList<String>();
+
+        String query = "SELECT " + KEY_PROMOTION_DESCRIPTION + " FROM " + TABLE_PROMOTION;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Promotion.add(cursor.getString(0));
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return Promotion;
+    }
+
+
 }

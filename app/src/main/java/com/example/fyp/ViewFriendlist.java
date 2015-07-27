@@ -34,12 +34,14 @@ public class ViewFriendlist extends Activity implements View.OnClickListener {
 
         Friendlist = (ListView) findViewById(R.id.friendlist);
         Friendlist.setChoiceMode(Friendlist.CHOICE_MODE_SINGLE);
-
         Friendlist.setTextFilterEnabled(true);
         LoadFriendList();
 
         Button AddFriend = (Button)findViewById(R.id.addfriend);
         AddFriend.setOnClickListener(this);
+
+        Button FriendRequest = (Button)findViewById(R.id.friendrequest);
+        FriendRequest.setOnClickListener(this);
 
         Button Homepage = (Button) findViewById(R.id.homepage);
         Homepage.setOnClickListener(this);
@@ -52,6 +54,11 @@ public class ViewFriendlist extends Activity implements View.OnClickListener {
                 Intent add = new Intent(this, AddFriends.class);
                 finish();
                 startActivity(add);
+                break;
+            case(R.id.friendrequest):
+                Intent request = new Intent(this, FriendRequest.class);
+                finish();
+                startActivity(request);
                 break;
             case(R.id.homepage):
                 finish();

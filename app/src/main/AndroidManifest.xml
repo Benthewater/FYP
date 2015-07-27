@@ -74,6 +74,10 @@
             android:name=".AddFriendsPopUp"
             android:label="@string/title_activity_add_friends_pop_up" >
         </activity>
+        <activity
+            android:name=".FriendRequest"
+            android:label="@string/title_activity_friend_request" >
+        </activity>
     </application>
 
 </manifest>

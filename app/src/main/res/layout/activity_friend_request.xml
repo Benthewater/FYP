@@ -1,40 +1,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/popup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="3"
-    tools:context="com.example.fyp.AddFriendsPopUp">
+    android:weightSum="8"
+    tools:context="com.example.fyp.FriendRequest">
 
     <TextView
-        android:id="@+id/Pop_up"
-        android:text="Pop Up"
+        android:text="Friend Request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="20dp"/>
 
+    <ListView
+        android:id="@+id/friendrequestlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_weight="2"
         android:weightSum="2">
 
         <Button
-            android:id="@+id/accept"
-            android:layout_width="wrap_content"
+            android:id="@+id/homepage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Accept"/>
+            />
 
-        <Button
-            android:id="@+id/decline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Decline"/>
 
     </LinearLayout>
 

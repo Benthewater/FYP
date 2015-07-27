@@ -1,19 +1,13 @@
 package com.example.fyp;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -28,7 +22,6 @@ import java.util.List;
 public class AddFriends extends Activity implements View.OnClickListener {
 
     private EditText friend_ID;
-    final Context context = this;
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     DBHelper mydb = new DBHelper(this);
@@ -63,24 +56,6 @@ public class AddFriends extends Activity implements View.OnClickListener {
             default:
                 break;
         }
-    }
-
-    private void dialogbox() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.activity_add_friends_pop_up);
-        dialog.setTitle("Add Friend");
-
-        TextView text = (TextView) dialog.findViewById(R.id.Pop_up);
-        text.setText("Example");
-        Button cancel = (Button) dialog.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
     }
 
     class AddingFriend extends AsyncTask<String, String, String> {

@@ -44,12 +44,17 @@ public class FirstPage extends Activity implements OnClickListener {
     private static final String TAG_SHOP_NAME = "shop_name_";
     private static final String TAG_FRIEND_ID = "friend_ID_";
     private static final String TAG_FRIEND_NAME = "friend_name_";
+    private static final String TAG_FRIEND_REQUEST_ID = "friend_request_ID_";
+    private static final String TAG_FRIEND_REQUEST_NAME = "friend_request_name_";
+    private static final String TAG_PROMOTION_ID = "promotion_ID_";
+    private static final String TAG_PROMOTION_DESCRIPTION = "promotion_description_";
+    private static final String TAG_PROMOTION_POINT = "promotion_point_";
 
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
 
     DBHelper mydb;
 
-    int shop_ID_counter = 0, shop_name_counter = 0, friend_ID_counter = 0, friend_name_counter = 0;
+    int shop_ID_counter = 0, shop_name_counter = 0, friend_ID_counter = 0, friend_name_counter = 0, friend_request_ID_counter = 0, friend_request_name_counter = 0, promotion_ID_counter = 0, promotion_descrption_counter = 0, promotion_point_counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +148,12 @@ public class FirstPage extends Activity implements OnClickListener {
                     }
                     while(!(json.isNull(TAG_FRIEND_ID + ++friend_ID_counter))){
                         mydb.StoreFriendInfo(Integer.valueOf(json.getString(TAG_FRIEND_ID + friend_ID_counter).toString()), json.getString(TAG_FRIEND_NAME + ++friend_name_counter));
+                    }
+                    while(!(json.isNull(TAG_FRIEND_REQUEST_ID + ++friend_request_ID_counter))){
+                        mydb.StoreFriendRequestInfo(Integer.valueOf(json.getString(TAG_FRIEND_REQUEST_ID + friend_request_ID_counter).toString()), json.getString(TAG_FRIEND_REQUEST_NAME + ++friend_request_name_counter));
+                    }
+                    while(!(json.isNull(TAG_PROMOTION_ID + ++promotion_ID_counter))){
+                        mydb.StorePromotionInfo(Integer.valueOf(json.getString(TAG_PROMOTION_ID + promotion_ID_counter).toString()), json.getString(TAG_PROMOTION_DESCRIPTION + ++promotion_descrption_counter), Integer.valueOf(json.getString(TAG_PROMOTION_POINT + ++promotion_point_counter).toString()));
                     }
                     return json.getString(TAG_MESSAGE);
                 }else{
